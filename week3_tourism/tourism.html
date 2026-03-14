@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>來台旅客季節性與城市住宿需求分析 | 聖翰的專案報告</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+--primary:#00f2fe;
+--secondary:#4facfe;
+--bg:#0f172a;
+--card-bg:rgba(30,41,59,0.7);
+--text:#f8fafc;
+--accent:#f43f5e;
+--success:#10b981;
+}
+
+body{
+font-family:'Segoe UI','Microsoft JhengHei',sans-serif;
+background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+color:var(--text);
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:1300px;
+margin:0 auto;
+}
+
+header{
+text-align:center;
+padding:50px 0;
+background:rgba(255,255,255,0.03);
+border-radius:20px;
+margin-bottom:30px;
+}
+
+h1{
+font-size:2.8rem;
+background:linear-gradient(to right,#fff,var(--primary));
+background-clip:text;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+color:transparent;
+margin:0;
+}
+
+.subtitle{
+color:#94a3b8;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:var(--card-bg);
+backdrop-filter:blur(15px);
+border-radius:18px;
+padding:25px;
+border:1px solid rgba(255,255,255,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+border-color:var(--primary);
+transform:translateY(-3px);
+}
+
+.stat-value{
+font-size:2.2rem;
+font-weight:800;
+color:var(--primary);
+display:block;
+}
+
+.stat-label{
+font-size:0.9rem;
+color:#94a3b8;
+}
+
+.badge{
+background:var(--accent);
+padding:3px 10px;
+border-radius:5px;
+font-size:0.8rem;
+font-weight:bold;
+}
+
+h2{
+color:var(--secondary);
+border-left:5px solid var(--secondary);
+padding-left:12px;
+margin-top:0;
+font-size:1.3rem;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+font-size:0.9rem;
+}
+
+th,td{
+padding:10px;
+text-align:left;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+th{
+color:var(--primary);
+}
+
+.tag{
+display:inline-block;
+padding:4px 12px;
+border-radius:20px;
+font-size:0.8rem;
+background:rgba(79,172,254,0.2);
+color:var(--primary);
+margin-right:5px;
+}
+
+.strategy-list{
+list-style:none;
+padding:0;
+}
+
+.strategy-list li::before{
+content:"✔";
+color:var(--primary);
+margin-right:10px;
+}
+
+.footer{
+text-align:center;
+padding:40px;
+color:#64748b;
+font-size:0.85rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<h1>來台旅客季節性與城市住宿需求分析</h1>
+<p class="subtitle">飯店投資與營運策略分析報告</p>
+</header>
+
+<!-- dashboard stats -->
+
+<div class="grid">
+
+<div class="card">
+<span class="stat-label">2025 全年來台旅客總數</span>
+<span class="stat-value">8,574,547</span>
+<span style="color:var(--success)">↑ 較前一年成長 9%</span>
+</div>
+
+<div class="card">
+<span class="stat-label">台北市觀光旅館房間佔比</span>
+<span class="stat-value">35.5%</span>
+<span class="stat-label">全台供給最集中區域</span>
+</div>
+
+<div class="card">
+<span class="stat-label">台南住宿需求指數</span>
+<span class="stat-value">1,574</span>
+<span class="badge">投資潛力最高</span>
+</div>
+
+</div>
+
+<!-- charts -->
+
+<div class="grid" style="grid-template-columns:2fr 1fr">
+
+<div class="card">
+
+<h2>2019-2025 來台旅客成長趨勢</h2>
+
+<canvas id="trendChart"></canvas>
+
+</div>
+
+<div class="card">
+
+<h2>2025 主要客源國籍</h2>
+
+<canvas id="nationalityChart"></canvas>
+
+<p style="font-size:0.8rem;color:#94a3b8;margin-top:10px">
+
+日本、港澳、韓國為主要市場
+
+</p>
+
+</div>
+
+</div>
+
+<!-- city supply -->
+
+<div class="grid">
+
+<div class="card">
+
+<h2>2026 旅宿供給統計</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>城市</th>
+<th>觀光旅館數</th>
+<th>房間數</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr><td>台北市</td><td>21</td><td>9,544</td></tr>
+<tr><td>高雄市</td><td>8</td><td>3,095</td></tr>
+<tr><td>台中市</td><td>5</td><td>2,280</td></tr>
+<tr><td>桃園市</td><td>6</td><td>2,355</td></tr>
+<tr><td>花蓮縣</td><td>4</td><td>900</td></tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="card">
+
+<h2>城市住宿供給比例</h2>
+
+<canvas id="supplyChart"></canvas>
+
+</div>
+
+</div>
+
+<!-- strategy -->
+
+<div class="card">
+
+<h2>營運策略：季節性分析</h2>
+
+<div>
+
+<span class="tag">旺季：2月、7-8月</span>
+<span class="tag">淡季：5月、11月</span>
+
+</div>
+
+<p>台灣旅遊市場具有明顯季節性。</p>
+
+<ul class="strategy-list">
+
+<li>旺季：採取動態定價提升收益</li>
+<li>淡季：推出主題促銷活動</li>
+<li>強化日韓旅客市場行銷</li>
+
+</ul>
+
+</div>
+
+<div class="footer">
+
+大數據分析課程專案報告  
+陳聖翰 製作  
+數據來源：交通部觀光署
+
+</div>
+
+</div>
+
+<script>
+
+new Chart(document.getElementById('trendChart'),{
+
+type:'line',
+
+data:{
+labels:['2019','2020','2021','2022','2023','2024','2025'],
+datasets:[{
+label:'來台旅客數',
+data:[11864105,1377861,140479,895962,6486951,7857686,8574547],
+borderColor:'#00f2fe',
+backgroundColor:'rgba(0,242,254,0.1)',
+fill:true,
+tension:0.4
+}]
+},
+
+options:{
+plugins:{legend:{display:false}},
+scales:{y:{grid:{color:'rgba(255,255,255,0.1)'}}}
+}
+
+})
+
+new Chart(document.getElementById('nationalityChart'),{
+
+type:'pie',
+
+data:{
+labels:['日本','港澳','韓國','美國','其他'],
+datasets:[{
+data:[150,120,101,71,415],
+backgroundColor:['#4facfe','#00f2fe','#f43f5e','#fbbf24','#475569'],
+borderWidth:0
+}]
+}
+
+})
+
+new Chart(document.getElementById('supplyChart'),{
+
+type:'doughnut',
+
+data:{
+labels:['台北','高雄','桃園','台中','其他'],
+datasets:[{
+data:[35.5,11.5,8.7,8.5,35.8],
+backgroundColor:['#4facfe','#00f2fe','#f43f5e','#fbbf24','#475569'],
+borderWidth:0
+}]
+}
+
+})
+
+</script>
+
+</body>
+</html>

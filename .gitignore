@@ -1,0 +1,22 @@
+# 忽略大型原始資料
+*.zip
+*.json
+*.txt
+*.csv
+*.xlsx
+*.ods
+
+# 忽略系統檔
+desktop.ini
+.DS_Store
+
+# 忽略 Office 暫存檔
+~$*.docx
+
+#圖片
+*.png
+*.pdf
+
+#其他
+raw_data
+data

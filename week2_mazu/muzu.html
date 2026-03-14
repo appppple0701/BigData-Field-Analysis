@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>廟宇活動與環保研究分析</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --primary: #c0392b; --secondary: #2c3e50; --bg: #f4f7f6; }
+        body { font-family: "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); color: var(--secondary); line-height: 1.6; }
+        header { background: var(--primary); color: white; padding: 60px 20px; text-align: center; }
+        .container { max-width: 900px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { border-left: 5px solid var(--primary); padding-left: 15px; color: var(--primary); }
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
+        .stat-card { background: #fff5f5; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #ffcccc; }
+        .highlight { font-size: 2em; font-weight: bold; color: var(--primary); }
+        canvas { margin: 30px 0; }
+        footer { text-align: center; padding: 40px; font-size: 0.9em; color: #777; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>廟宇大型活動與環境污染關聯研究</h1>
+    <p>結合交通、天氣、活動之分析成果</p>
+</header>
+
+<div class="container">
+    <h2>一、PM2.5 時間序列分析 (4/1 - 4/15)</h2>
+    <p>觀察 4/4 起駕至 4/13 回駕期間，污染物濃度隨活動節奏明顯波動。</p>
+    <canvas id="timeSeriesChart"></canvas>
+
+    <h2>二、遶境前後對比</h2>
+    <div class="stat-grid">
+        <div class="stat-card"><div>遶境前</div><div class="highlight">24</div>μg/m³</div>
+        <div class="stat-card" style="background: #ffebeb;"><div>遶境期間</div><div class="highlight">33</div>μg/m³</div>
+        <div class="stat-card"><div>遶境後</div><div class="highlight">26</div>μg/m³</div>
+    </div>
+    <blockquote style="background: #eee; padding: 15px; border-radius: 5px;">
+        <strong>結論：</strong> 遶境期間 PM2.5 平均上升約 <strong>30%</strong>，活動與空汙具高度正相關。
+    </blockquote>
+
+    <h2>三、城市受影響程度比較</h2>
+    <canvas id="cityChart"></canvas>
+    <p>分析顯示：<strong>彰化</strong>因停駕活動多且人潮集中，污染上升最為明顯。</p>
+
+    <h2>四、分析總結</h2>
+    <ul>
+        <li>活動與污染具有強關聯性。</li>
+        <li>祝壽大典 (4/8) 為最高峰。</li>
+        <li>氣象因素（風速、降雨）無法完全抵銷活動產生的污染量。</li>
+        <li>影響屬短期衝擊，結束後 1–3 天內可恢復基準值。</li>
+    </ul>
+</div>
+
+<footer>
+    <p>© 2026 大學環境科學研究小組 · 專案成員：陳聖翰與團隊</p>
+</footer>
+
+<script>
+// PM2.5 趨勢圖
+const ctx1 = document.getElementById('timeSeriesChart').getContext('2d');
+new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: ['4/1', '4/3', '4/4(起駕)', '4/6', '4/8(大典)', '4/10', '4/13(回駕)', '4/15'],
+        datasets: [{
+            label: 'PM2.5 濃度 (μg/m³)',
+            data: [24, 24, 28, 32, 38, 34, 29, 25],
+            borderColor: '#c0392b',
+            backgroundColor: 'rgba(192, 57, 43, 0.1)',
+            fill: true,
+            tension: 0.4
+        }]
+    }
+});
+
+// 城市對比圖
+const ctx2 = document.getElementById('cityChart').getContext('2d');
+new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['台中', '彰化', '雲林', '嘉義'],
+        datasets: [{
+            label: '污染上升幅度',
+            data: [15, 35, 20, 12],
+            backgroundColor: ['#f1948a', '#c0392b', '#e67e22', '#f39c12']
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        plugins: { legend: { display: false } }
+    }
+});
+</script>
+
+</body>
+</html>
